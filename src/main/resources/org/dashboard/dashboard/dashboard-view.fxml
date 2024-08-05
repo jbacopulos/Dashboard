@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Line?>
+
+<GridPane id="pane" xmlns:fx="http://javafx.com/fxml"
+          fx:controller="org.dashboard.dashboard.DashboardController" hgap="12">
+  <padding>
+    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+  </padding>
+
+  <!-- Define three columns -->
+  <columnConstraints>
+    <ColumnConstraints percentWidth="30"/>
+    <ColumnConstraints percentWidth="40"/>
+    <ColumnConstraints percentWidth="30"/>
+  </columnConstraints>
+
+  <!-- Define one row -->
+  <rowConstraints>
+    <RowConstraints vgrow="ALWAYS"/>
+  </rowConstraints>
+
+  <!-- First column content -->
+  <VBox GridPane.columnIndex="0">
+    <HBox>
+      <Label fx:id="timeText" id="timeText">
+        <HBox.hgrow>
+        </HBox.hgrow>
+      </Label>
+      <VBox>
+        <padding>
+          <Insets top="15.0" left="3.0"/>
+        </padding>
+        <Label fx:id="secondsText" id="secondsText"/>
+        <Label fx:id="periodText" id="periodText" />
+      </VBox>
+    </HBox>
+    <Label fx:id="dateText" id="dateText">
+        <padding>
+            <Insets left="15.0" />
+        </padding>
+    </Label>
+  </VBox>
+
+  <!-- Second column context -->
+  <GridPane fx:id="newsGrid" id="leftRegion" GridPane.columnIndex="1">
+    <rowConstraints>
+      <RowConstraints vgrow="ALWAYS"/>
+      <RowConstraints vgrow="ALWAYS"/>
+      <RowConstraints vgrow="ALWAYS"/>
+      <RowConstraints vgrow="ALWAYS"/>
+      <RowConstraints vgrow="ALWAYS"/>
+      <RowConstraints vgrow="ALWAYS"/>
+      <RowConstraints vgrow="ALWAYS"/>
+      <RowConstraints vgrow="ALWAYS"/>
+    </rowConstraints>
+    <padding>
+      <Insets top="10.0" right="10.0" left="10.0" bottom="10.0" />
+    </padding>
+  </GridPane>
+
+  <!-- Third column content -->
+  <VBox id="rightRegion" GridPane.columnIndex="2" alignment="TOP_CENTER">
+    <Label fx:id="currentTempText" id="currentTempText">
+      <padding>
+        <Insets top="15.0" />
+      </padding>
+    </Label>
+    <Label fx:id="feelsLikeText" id="feelsLikeText">
+      <padding>
+        <Insets top="8.0" />
+      </padding>
+    </Label>
+    <Label fx:id="weatherText" id="weatherText">
+      <padding>
+        <Insets top="5.0" />
+      </padding>
+    </Label>
+    <Region minHeight="20.0" />
+
+    <Line styleClass="divider" startX="-50" endX="150"/>
+
+    <GridPane>
+      <columnConstraints>
+        <ColumnConstraints percentWidth="33"/>
+        <ColumnConstraints percentWidth="33"/>
+        <ColumnConstraints percentWidth="33"/>
+      </columnConstraints>
+      <padding>
+        <Insets top="15.0" bottom="15.0" />
+      </padding>
+      <Label styleClass="weatherDetails" text="Today" GridPane.columnIndex="0" GridPane.halignment="CENTER"/>
+      <VBox alignment="CENTER" GridPane.columnIndex="1">
+        <padding>
+            <Insets top="5.0" />
+        </padding>
+        <Label fx:id="todayPrecipitationText" styleClass="weatherDetails"/>
+        <ImageView fx:id="todayWeatherIcon" id="todayWeatherIcon" fitWidth="30" fitHeight="30"/>
+      </VBox>
+      <VBox alignment="CENTER" GridPane.columnIndex="2">
+        <padding>
+          <Insets right="10.0" />
+        </padding>
+        <Label fx:id="todayHighTempText" styleClass="weatherDetails"/>
+        <Label fx:id="todayLowTempText" styleClass="weatherDetails"/>
+      </VBox>
+    </GridPane>
+
+    <Line styleClass="divider" startX="-50" endX="150"/>
+
+    <GridPane>
+      <columnConstraints>
+        <ColumnConstraints percentWidth="33"/>
+        <ColumnConstraints percentWidth="33"/>
+        <ColumnConstraints percentWidth="33"/>
+      </columnConstraints>
+      <padding>
+        <Insets top="15.0" bottom="15.0" />
+      </padding>
+      <Label fx:id="tomorrowText" styleClass="weatherDetails" GridPane.columnIndex="0" GridPane.halignment="CENTER"/>
+      <VBox alignment="CENTER" GridPane.columnIndex="1">
+        <padding>
+          <Insets top="5.0" />
+        </padding>
+        <Label fx:id="tomorrowPrecipitationText" styleClass="weatherDetails"/>
+        <ImageView fx:id="tomorrowWeatherIcon" id="todayWeatherIcon" fitWidth="30" fitHeight="30"/>
+      </VBox>
+      <VBox alignment="CENTER" GridPane.columnIndex="2">
+        <padding>
+          <Insets right="10.0" />
+        </padding>
+        <Label fx:id="tomorrowHighTempText" styleClass="weatherDetails"/>
+        <Label fx:id="tomorrowLowTempText" styleClass="weatherDetails"/>
+      </VBox>
+    </GridPane>
+
+    <Line styleClass="divider" startX="-50" endX="150"/>
+
+    <GridPane>
+      <columnConstraints>
+        <ColumnConstraints percentWidth="33"/>
+        <ColumnConstraints percentWidth="33"/>
+        <ColumnConstraints percentWidth="33"/>
+      </columnConstraints>
+      <padding>
+        <Insets top="15.0" bottom="15.0" />
+      </padding>
+      <Label fx:id="overmorrowText" styleClass="weatherDetails" GridPane.columnIndex="0" GridPane.halignment="CENTER"/>
+      <VBox alignment="CENTER" GridPane.columnIndex="1">
+        <padding>
+          <Insets top="5.0" />
+        </padding>
+        <Label fx:id="overmorrowPrecipitationText" styleClass="weatherDetails"/>
+        <ImageView fx:id="overmorrowWeatherIcon" id="todayWeatherIcon" fitWidth="30" fitHeight="30"/>
+      </VBox>
+      <VBox alignment="CENTER" GridPane.columnIndex="2">
+        <padding>
+          <Insets right="10.0" />
+        </padding>
+        <Label fx:id="overmorrowHighTempText" styleClass="weatherDetails"/>
+        <Label fx:id="overmorrowLowTempText" styleClass="weatherDetails"/>
+      </VBox>
+    </GridPane>
+
+    <Line styleClass="divider" startX="-50" endX="150"/>
+  </VBox>
+</GridPane>
