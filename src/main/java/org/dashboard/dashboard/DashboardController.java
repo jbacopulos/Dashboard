@@ -1,5 +1,6 @@
 package org.dashboard.dashboard;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -96,11 +97,12 @@ public class DashboardController {
     @FXML
     private Label overmorrowLowTempText;
 
-    private final String zip = "M6S,CA";
+    Dotenv dotenv = Dotenv.load();
+    private final String zip = dotenv.get("ZIP");
     private final String mode = "xml";
-    private final String units = "metric";
-    private final String owApiKey = "6efc11632972e5de37433674a4884311";
-    private final String wApiKey = "faa66a38ec5a418193a231502222806";
+    private final String units = dotenv.get("UNIT");
+    private final String owApiKey = dotenv.get("OW_API_KEY");
+    private final String wApiKey = dotenv.get("W_API_KEY");
 
     private final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm");
     private final DateTimeFormatter secondsFormatter = DateTimeFormatter.ofPattern("ss");
