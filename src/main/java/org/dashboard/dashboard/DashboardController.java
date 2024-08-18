@@ -3,114 +3,89 @@ package org.dashboard.dashboard;
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Set;
+
 
 public class DashboardController {
 
-    public DashboardController() throws ParserConfigurationException {
-    }
-
-    @FXML
-    private Label timeText;
-
-    @FXML
-    private Label secondsText;
-
-    @FXML
-    private Label periodText;
-
-    @FXML
-    private Label dateText;
-
-    @FXML
-    private GridPane newsGrid;
-
-    @FXML
-    private Label currentTempText;
-
-    @FXML
-    private Label feelsLikeText;
-
-    @FXML
-    private Label weatherText;
-
-    @FXML
-    private Label todayPrecipitationText;
-
-    @FXML
-    private ImageView todayWeatherIcon;
-
-    @FXML
-    private Label todayHighTempText;
-
-    @FXML
-    private Label todayLowTempText;
-
-    @FXML
-    private Label tomorrowText;
-
-    @FXML
-    private Label tomorrowPrecipitationText;
-
-    @FXML
-    private ImageView tomorrowWeatherIcon;
-
-    @FXML
-    private Label tomorrowHighTempText;
-
-    @FXML
-    private Label tomorrowLowTempText;
-
-    @FXML
-    private Label overmorrowText;
-
-    @FXML
-    private Label overmorrowPrecipitationText;
-
-    @FXML
-    private ImageView overmorrowWeatherIcon;
-
-    @FXML
-    private Label overmorrowHighTempText;
-
-    @FXML
-    private Label overmorrowLowTempText;
-
-    Dotenv dotenv = Dotenv.load();
-    private final String zip = dotenv.get("ZIP");
     private final String mode = "xml";
-    private final String units = dotenv.get("UNIT");
-    private final String owApiKey = dotenv.get("OW_API_KEY");
-    private final String wApiKey = dotenv.get("W_API_KEY");
-
     private final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm");
     private final DateTimeFormatter secondsFormatter = DateTimeFormatter.ofPattern("ss");
     private final DateTimeFormatter periodFormatter = DateTimeFormatter.ofPattern("a");
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd");
-
     private final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     private final DocumentBuilder builder = factory.newDocumentBuilder();
+    Dotenv dotenv = Dotenv.load();
+    private final String zip = dotenv.get("ZIP");
+    private final String units = dotenv.get("UNIT");
+    private final String owApiKey = dotenv.get("OW_API_KEY");
+    private final String wApiKey = dotenv.get("W_API_KEY");
+    @FXML
+    private Label timeText;
+    @FXML
+    private Label secondsText;
+    @FXML
+    private Label periodText;
+    @FXML
+    private Label dateText;
+    @FXML
+    private GridPane newsGrid;
+    @FXML
+    private Label currentTempText;
+    @FXML
+    private Label feelsLikeText;
+    @FXML
+    private Label weatherText;
+    @FXML
+    private Label todayPrecipitationText;
+    @FXML
+    private ImageView todayWeatherIcon;
+    @FXML
+    private Label todayHighTempText;
+    @FXML
+    private Label todayLowTempText;
+    @FXML
+    private Label tomorrowText;
+    @FXML
+    private Label tomorrowPrecipitationText;
+    @FXML
+    private ImageView tomorrowWeatherIcon;
+    @FXML
+    private Label tomorrowHighTempText;
+    @FXML
+    private Label tomorrowLowTempText;
+    @FXML
+    private Label overmorrowText;
+    @FXML
+    private Label overmorrowPrecipitationText;
+    @FXML
+    private ImageView overmorrowWeatherIcon;
+    @FXML
+    private Label overmorrowHighTempText;
+    @FXML
+    private Label overmorrowLowTempText;
+
+    public DashboardController() throws ParserConfigurationException {
+    }
 
     @FXML
     public void initialize() {
@@ -137,9 +112,10 @@ public class DashboardController {
     }
 
     private String doubleStringToIntString(String s) {
-        return Integer.toString((int)Math.round(Double.parseDouble(s)));
+        return Integer.toString((int) Math.round(Double.parseDouble(s)));
     }
-    private Document fetchAndParseXML(String urlString) throws IOException, SAXException, IOException {
+
+    private Document fetchAndParseXML(String urlString) throws SAXException, IOException {
         URL url = new URL(urlString);
         InputStream stream = url.openStream();
         Document document = builder.parse(stream);
@@ -231,7 +207,11 @@ public class DashboardController {
         highTempText.setText(doubleStringToIntString(dayDetails.getChildNodes().item(0).getTextContent()) + "°");
         lowTempText.setText(doubleStringToIntString(dayDetails.getChildNodes().item(2).getTextContent()) + "°");
 
-        Image weatherImage = new Image("https:" + dayDetails.getChildNodes().item(18).getChildNodes().item(1).getTextContent());
-        weatherIcon.setImage(weatherImage);
+        try {
+            BufferedImage weatherImage = ImageIO.read(new URL("https:" + dayDetails.getChildNodes().item(18).getChildNodes().item(1).getTextContent()));
+            weatherIcon.setImage(SwingFXUtils.toFXImage(weatherImage, null));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
