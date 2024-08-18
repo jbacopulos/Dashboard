@@ -208,7 +208,7 @@ public class DashboardController {
         lowTempText.setText(doubleStringToIntString(dayDetails.getChildNodes().item(2).getTextContent()) + "°");
 
         try {
-            BufferedImage weatherImage = ImageIO.read(new URL("https:" + dayDetails.getChildNodes().item(18).getChildNodes().item(1).getTextContent()));
+            BufferedImage weatherImage = ImageIO.read(new URL("http:" + dayDetails.getChildNodes().item(18).getChildNodes().item(1).getTextContent()));
             weatherIcon.setImage(SwingFXUtils.toFXImage(weatherImage, null));
         } catch (IOException e) {
             e.printStackTrace();
