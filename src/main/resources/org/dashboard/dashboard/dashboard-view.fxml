@@ -39,9 +39,6 @@
             </VBox>
         </HBox>
         <Label fx:id="dateText" id="dateText">
-            <padding>
-                <Insets left="15.0"/>
-            </padding>
         </Label>
     </VBox>
 
